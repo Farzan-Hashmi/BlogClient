@@ -32,20 +32,20 @@ function IndividualPost() {
       if (!authState.loggedIn) {
         alert("Credentials are Missing/Incorrect");
       }
-      console.log(values);
+
       values["CommentBody"] = values["body"];
       delete values["body"];
       values["PostId"] = postId;
-      console.log(values);
+
       let response = await axios.post(
-        "http://localhost:3001/comments",
+        "https://black-white-blog.herokuapp.com/comments",
         values,
         { headers: { accessToken: localStorage.getItem("token") } }
       );
       if (response.error) {
         alert("Credentials are incorrect");
       } else {
-        console.log("Successfully added comment");
+
 
         getComments();
       }
@@ -54,26 +54,26 @@ function IndividualPost() {
   });
 
   const getComments = () => {
-    axios.get(`http://localhost:3001/comments/${postId}`).then((res) => {
-      console.log(res.data);
+    axios.get(`https://black-white-blog.herokuapp.com/comments/${postId}`).then((res) => {
+
       setPostComments(res.data);
     });
   };
 
   async function deleteComment(id) {
     if (authState.loggedIn) {
-      const res = await axios.delete(`http://localhost:3001/comments/${id}`, {
+      const res = await axios.delete(`https://black-white-blog.herokuapp.com/comments/${id}`, {
         headers: { accessToken: localStorage.getItem("token") },
       });
-      console.log(res.data);
+
       getComments();
     } else {
       alert("Credentials are Missing/Incorrect");
     }
   }
   useEffect(() => {
-    axios.get(`http://localhost:3001/posts/byId/${postId}`).then((res) => {
-      console.log(res.data);
+    axios.get(`https://black-white-blog.herokuapp.com/posts/byId/${postId}`).then((res) => {
+    
       setPostInfo(res.data);
     });
     getComments();

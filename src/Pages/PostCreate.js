@@ -26,10 +26,10 @@ function PostCreate() {
     onSubmit: async (values) => {
       values["postText"] = values["body"];
       delete values["body"];
-      console.log(values);
+    
 
       axios
-        .post("http://localhost:3001/posts", values, {
+        .post("https://black-white-blog.herokuapp.com/posts", values, {
           headers: { accessToken: localStorage.getItem("token") },
         })
         .then((res) => {

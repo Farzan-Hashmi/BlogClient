@@ -44,26 +44,26 @@ function ProfilePage() {
   const [username, setUsername] = useState("");
 
   async function getPostsbyUser() {
-    let res = await axios.get(`http://localhost:3001/posts/user/${userId}`);
-    console.log(res.data);
+    let res = await axios.get(`https://black-white-blog.herokuapp.com/posts/user/${userId}`);
+
     setUserPosts(res.data);
     setUsername(res.data[0].username);
   }
 
   async function getCommentsbyUser() {
-    let res = await axios.get(`http://localhost:3001/comments/user/${userId}`);
-    console.log(res.data);
+    let res = await axios.get(`https://black-white-blog.herokuapp.com/comments/user/${userId}`);
+
     setUserComments(res.data);
   }
 
   async function likePost(id) {
     if (authState.loggedIn) {
       const res = await axios.post(
-        "http://localhost:3001/like",
+        "https://black-white-blog.herokuapp.com/like",
         { PostId: id },
         { headers: { accessToken: localStorage.getItem("token") } }
       );
-      console.log(res.data);
+
       getPostsbyUser();
     } else {
       alert("You must be logged in to like a post");
@@ -72,10 +72,10 @@ function ProfilePage() {
 
   async function deletePost(id) {
     if (authState.loggedIn) {
-      const res = await axios.delete(`http://localhost:3001/posts/${id}`, {
+      const res = await axios.delete(`https://black-white-blog.herokuapp.com/posts/${id}`, {
         headers: { accessToken: localStorage.getItem("token") },
       });
-      console.log(res.data);
+   
       getPostsbyUser();
     } else {
       alert("You must be logged in to delete a post");
@@ -84,10 +84,10 @@ function ProfilePage() {
 
   async function deleteComment(id) {
     if (authState.loggedIn) {
-      let res = await axios.delete(`http://localhost:3001/comments/${id}`, {
+      let res = await axios.delete(`https://black-white-blog.herokuapp.com/comments/${id}`, {
         headers: { accessToken: localStorage.getItem("token") },
       });
-      console.log(res.data);
+      
       getCommentsbyUser();
     } else {
       alert("You must be logged in to delete a comment");
@@ -95,7 +95,7 @@ function ProfilePage() {
   }
 
   useEffect(() => {
-    console.log(userId);
+ 
     getPostsbyUser();
     getCommentsbyUser();
   }, []);

@@ -46,15 +46,15 @@ function App() {
   });
 
   useEffect(() => {
-    console.log(localStorage.getItem("token"));
+ 
     axios
-      .get("http://localhost:3001/auth/verify", {
+      .get("https://black-white-blog.herokuapp.com/auth/verify", {
         headers: {
           accessToken: localStorage.getItem("token"),
         },
       })
       .then((res) => {
-        console.log(res.data);
+
         if (res.data.error) {
           setAuthState({ ...authState, loggedIn: false });
         } else {

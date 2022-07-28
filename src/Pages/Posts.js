@@ -38,8 +38,8 @@ function Posts() {
   const [postdata, setpostdata] = useState([]);
 
   function getPosts() {
-    axios.get("http://localhost:3001/posts").then((res) => {
-      console.log(res.data);
+    axios.get("https://black-white-blog.herokuapp.com/posts").then((res) => {
+
       setpostdata(res.data);
     });
   }
@@ -47,11 +47,11 @@ function Posts() {
   async function likePost(id) {
     if (authState.loggedIn) {
       const res = await axios.post(
-        "http://localhost:3001/like",
+        "https://black-white-blog.herokuapp.com/like",
         { PostId: id },
         { headers: { accessToken: localStorage.getItem("token") } }
       );
-      console.log(res.data);
+   
       getPosts();
     } else {
       alert("You must be logged in to like a post");
@@ -60,10 +60,10 @@ function Posts() {
 
   async function deletePost(id) {
     if (authState.loggedIn) {
-      const res = await axios.delete(`http://localhost:3001/posts/${id}`, {
+      const res = await axios.delete(`https://black-white-blog.herokuapp.com/posts/${id}`, {
         headers: { accessToken: localStorage.getItem("token") },
       });
-      console.log(res.data);
+
       getPosts();
     } else {
       alert("You must be logged in to delete a post");
