@@ -91,7 +91,7 @@ function Posts() {
                 </Typography>
               </CardContent>
             </CardActionArea>
-            <Box sx={{ height: 100.1 }} />
+            <Box sx={{ height: 100 }} />
             <CardActions
               style={{ display: "flex", justifyContent: "space-between" }}
             >
