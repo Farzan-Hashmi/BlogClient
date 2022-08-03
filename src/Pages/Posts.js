@@ -40,15 +40,12 @@ function Posts() {
   const [isLoading, setisLoading] = useState(true);
 
   function getPosts() {
-    setisLoading(true);
     axios
       .get("https://black-white-blog.herokuapp.com/posts")
       .then((res) => {
         setpostdata(res.data);
       })
-      .then(() => {
-        setisLoading(false);
-      });
+      .then(() => {});
   }
 
   async function likePost(id) {
@@ -81,7 +78,9 @@ function Posts() {
   }
 
   useEffect(() => {
+    setisLoading(true);
     getPosts();
+    setisLoading(false);
   }, []);
 
   return (
