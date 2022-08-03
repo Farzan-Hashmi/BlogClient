@@ -17,6 +17,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CommentIcon from "@mui/icons-material/Comment";
+import { TailSpin } from "react-loader-spinner";
 
 const cardStyle = {
   display: "block",
@@ -36,11 +37,18 @@ export function likeExistsforUser(id, array) {
 function Posts() {
   const { authState } = useContext(AuthContext);
   const [postdata, setpostdata] = useState([]);
+  const [isLoading, setisLoading] = useState(true);
 
   function getPosts() {
-    axios.get("https://black-white-blog.herokuapp.com/posts").then((res) => {
-      setpostdata(res.data);
-    });
+    setisLoading(true);
+    axios
+      .get("https://black-white-blog.herokuapp.com/posts")
+      .then((res) => {
+        setpostdata(res.data);
+      })
+      .then(() => {
+        setisLoading(false);
+      });
   }
 
   async function likePost(id) {
@@ -78,67 +86,73 @@ function Posts() {
 
   return (
     <div style={{ height: "100vh" }} className={posts.container2}>
-      {postdata.map((post) => (
-        <>
-          <Card className={posts.center2} style={cardStyle}>
-            <CardActionArea component={Link} to={`/post/${post.id}`}>
-              <CardHeader title={post.title} subheader={post.username} />
-              <CardContent>
-                <Typography variant="body1" color="text.secondary">
-                  {post.postText.length > 475
-                    ? post.postText.substring(0, 475) + "..."
-                    : post.postText}
+      {!isLoading ? (
+        postdata.map((post) => (
+          <>
+            <Card className={posts.center2} style={cardStyle}>
+              <CardActionArea component={Link} to={`/post/${post.id}`}>
+                <CardHeader title={post.title} subheader={post.username} />
+                <CardContent>
+                  <Typography variant="body1" color="text.secondary">
+                    {post.postText.length > 475
+                      ? post.postText.substring(0, 475) + "..."
+                      : post.postText}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <Box sx={{ height: 100 }} />
+              <CardActions
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                {likeExistsforUser(authState.id, post.Likes) ? (
+                  <IconButton onClick={() => likePost(post.id)}>
+                    <FavoriteIcon color="error" />
+                  </IconButton>
+                ) : (
+                  <IconButton onClick={() => likePost(post.id)}>
+                    <FavoriteIcon color="none" />
+                  </IconButton>
+                )}
+
+                <Typography variant="body2" color="text.secondary">
+                  {post.Likes.length}
                 </Typography>
-              </CardContent>
-            </CardActionArea>
-            <Box sx={{ height: 100 }} />
-            <CardActions
-              style={{ display: "flex", justifyContent: "space-between" }}
-            >
-              {likeExistsforUser(authState.id, post.Likes) ? (
-                <IconButton onClick={() => likePost(post.id)}>
-                  <FavoriteIcon color="error" />
-                </IconButton>
-              ) : (
-                <IconButton onClick={() => likePost(post.id)}>
-                  <FavoriteIcon color="none" />
-                </IconButton>
-              )}
 
-              <Typography variant="body2" color="text.secondary">
-                {post.Likes.length}
-              </Typography>
+                <Box sx={{ width: 400 }} />
+                <CommentIcon />
+                <Typography variant="body2" color="text.secondary">
+                  {post.Comments.length}
+                </Typography>
 
-              <Box sx={{ width: 400 }} />
-              <CommentIcon />
-              <Typography variant="body2" color="text.secondary">
-                {post.Comments.length}
-              </Typography>
+                <Box
+                  sx={{
+                    width: 450,
+                    height: 1,
+                  }}
+                />
 
-              <Box
-                sx={{
-                  width: 450,
-                  height: 1,
-                }}
-              />
-
-              {post.UserId === authState.id ? (
-                <IconButton onClick={() => deletePost(post.id)}>
-                  <DeleteIcon />
-                </IconButton>
-              ) : (
-                <IconButton />
-              )}
-            </CardActions>
-          </Card>
-          <Box
-            sx={{
-              width: 1,
-              height: 400,
-            }}
-          />
-        </>
-      ))}
+                {post.UserId === authState.id ? (
+                  <IconButton onClick={() => deletePost(post.id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton />
+                )}
+              </CardActions>
+            </Card>
+            <Box
+              sx={{
+                width: 1,
+                height: 400,
+              }}
+            />
+          </>
+        ))
+      ) : (
+        <div className={posts.loading}>
+          <TailSpin color="#00BFFF" height={80} width={80} />
+        </div>
+      )}
     </div>
   );
 }
