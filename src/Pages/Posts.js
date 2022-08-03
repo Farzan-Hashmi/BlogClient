@@ -39,7 +39,6 @@ function Posts() {
 
   function getPosts() {
     axios.get("https://black-white-blog.herokuapp.com/posts").then((res) => {
-
       setpostdata(res.data);
     });
   }
@@ -51,7 +50,7 @@ function Posts() {
         { PostId: id },
         { headers: { accessToken: localStorage.getItem("token") } }
       );
-   
+
       getPosts();
     } else {
       alert("You must be logged in to like a post");
@@ -60,9 +59,12 @@ function Posts() {
 
   async function deletePost(id) {
     if (authState.loggedIn) {
-      const res = await axios.delete(`https://black-white-blog.herokuapp.com/posts/${id}`, {
-        headers: { accessToken: localStorage.getItem("token") },
-      });
+      const res = await axios.delete(
+        `https://black-white-blog.herokuapp.com/posts/${id}`,
+        {
+          headers: { accessToken: localStorage.getItem("token") },
+        }
+      );
 
       getPosts();
     } else {
@@ -89,7 +91,7 @@ function Posts() {
                 </Typography>
               </CardContent>
             </CardActionArea>
-            <Box sx={{ height: 100 }} />
+            <Box sx={{ height: 100.1 }} />
             <CardActions
               style={{ display: "flex", justifyContent: "space-between" }}
             >
