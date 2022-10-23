@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const vaidationSchema = yup.object().shape({
   username: yup.string().min(5).max(12).required("Username is required"),
-  password: yup.string().min(6).max(18).required("Password is required"),
+  password: yup.string().min(6).required("Password is required"),
 });
 
 function Register() {
