@@ -29,7 +29,7 @@ function PostCreate() {
     
 
       axios
-        .post("https://black-white-blog.herokuapp.com/posts", values, {
+        .post("https://blogbackend-production-9767.up.railway.app/posts", values, {
           headers: { accessToken: localStorage.getItem("token") },
         })
         .then((res) => {

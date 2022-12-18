@@ -23,7 +23,7 @@ function Register() {
     onSubmit: async (values) => {
       //values: {username: "", password: ""}
       try {
-        let response = await axios.post("https://black-white-blog.herokuapp.com/auth", values);
+        let response = await axios.post("https://blogbackend-production-9767.up.railway.app/auth", values);
         alert("Successfully registered");
         navigate("/login");
       } catch (err) {

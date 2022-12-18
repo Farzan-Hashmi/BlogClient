@@ -48,7 +48,7 @@ function App() {
   useEffect(() => {
  
     axios
-      .get("https://black-white-blog.herokuapp.com/auth/verify", {
+      .get("https://blogbackend-production-9767.up.railway.app/auth/verify", {
         headers: {
           accessToken: localStorage.getItem("token"),
         },

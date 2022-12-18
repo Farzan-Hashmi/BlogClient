@@ -38,7 +38,7 @@ function IndividualPost() {
       values["PostId"] = postId;
 
       let response = await axios.post(
-        "https://black-white-blog.herokuapp.com/comments",
+        "https://blogbackend-production-9767.up.railway.app/comments",
         values,
         { headers: { accessToken: localStorage.getItem("token") } }
       );
@@ -54,7 +54,7 @@ function IndividualPost() {
   });
 
   const getComments = () => {
-    axios.get(`https://black-white-blog.herokuapp.com/comments/${postId}`).then((res) => {
+    axios.get(`https://blogbackend-production-9767.up.railway.app/comments/${postId}`).then((res) => {
 
       setPostComments(res.data);
     });
@@ -62,7 +62,7 @@ function IndividualPost() {
 
   async function deleteComment(id) {
     if (authState.loggedIn) {
-      const res = await axios.delete(`https://black-white-blog.herokuapp.com/comments/${id}`, {
+      const res = await axios.delete(`https://blogbackend-production-9767.up.railway.app/comments/${id}`, {
         headers: { accessToken: localStorage.getItem("token") },
       });
 
@@ -72,7 +72,7 @@ function IndividualPost() {
     }
   }
   useEffect(() => {
-    axios.get(`https://black-white-blog.herokuapp.com/posts/byId/${postId}`).then((res) => {
+    axios.get(`https://blogbackend-production-9767.up.railway.app/posts/byId/${postId}`).then((res) => {
     
       setPostInfo(res.data);
     });

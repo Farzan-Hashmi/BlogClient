@@ -21,7 +21,7 @@ function Login() {
       //values: {username: "", password: ""}
       try {
         let response = await axios.post(
-          "https://black-white-blog.herokuapp.com/auth/login",
+          "https://blogbackend-production-9767.up.railway.app/auth/login",
           values
         );
         localStorage.setItem("token", response.data.token);
