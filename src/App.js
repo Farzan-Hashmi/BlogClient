@@ -48,7 +48,7 @@ function App() {
   useEffect(() => {
  
     axios
-      .get("https://blogbackend-production-9767.up.railway.app/auth/verify", {
+      .get("https://blogbackend-production-db2b.up.railway.app/auth/verify", {
         headers: {
           accessToken: localStorage.getItem("token"),
         },

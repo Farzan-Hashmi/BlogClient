@@ -44,14 +44,14 @@ function ProfilePage() {
   const [username, setUsername] = useState("");
 
   async function getPostsbyUser() {
-    let res = await axios.get(`https://blogbackend-production-9767.up.railway.app/posts/user/${userId}`);
+    let res = await axios.get(`https://blogbackend-production-db2b.up.railway.app/posts/user/${userId}`);
 
     setUserPosts(res.data);
     setUsername(res.data[0].username);
   }
 
   async function getCommentsbyUser() {
-    let res = await axios.get(`https://blogbackend-production-9767.up.railway.app/comments/user/${userId}`);
+    let res = await axios.get(`https://blogbackend-production-db2b.up.railway.app/comments/user/${userId}`);
 
     setUserComments(res.data);
   }
@@ -59,7 +59,7 @@ function ProfilePage() {
   async function likePost(id) {
     if (authState.loggedIn) {
       const res = await axios.post(
-        "https://blogbackend-production-9767.up.railway.app/like",
+        "https://blogbackend-production-db2b.up.railway.app/like",
         { PostId: id },
         { headers: { accessToken: localStorage.getItem("token") } }
       );
@@ -72,7 +72,7 @@ function ProfilePage() {
 
   async function deletePost(id) {
     if (authState.loggedIn) {
-      const res = await axios.delete(`https://blogbackend-production-9767.up.railway.app/posts/${id}`, {
+      const res = await axios.delete(`https://blogbackend-production-db2b.up.railway.app/posts/${id}`, {
         headers: { accessToken: localStorage.getItem("token") },
       });
    
@@ -84,7 +84,7 @@ function ProfilePage() {
 
   async function deleteComment(id) {
     if (authState.loggedIn) {
-      let res = await axios.delete(`https://blogbackend-production-9767.up.railway.app/comments/${id}`, {
+      let res = await axios.delete(`https://blogbackend-production-db2b.up.railway.app/comments/${id}`, {
         headers: { accessToken: localStorage.getItem("token") },
       });
       

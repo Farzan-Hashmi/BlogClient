@@ -41,7 +41,7 @@ function Posts() {
 
   function getPosts() {
     axios
-      .get("https://blogbackend-production-9767.up.railway.app/posts")
+      .get("https://blogbackend-production-db2b.up.railway.app/posts")
       .then((res) => {
         setpostdata(res.data);
       })
@@ -51,7 +51,7 @@ function Posts() {
   async function likePost(id) {
     if (authState.loggedIn) {
       const res = await axios.post(
-        "https://blogbackend-production-9767.up.railway.app/like",
+        "https://blogbackend-production-db2b.up.railway.app/like",
         { PostId: id },
         { headers: { accessToken: localStorage.getItem("token") } }
       );
@@ -65,7 +65,7 @@ function Posts() {
   async function deletePost(id) {
     if (authState.loggedIn) {
       const res = await axios.delete(
-        `https://blogbackend-production-9767.up.railway.app/posts/${id}`,
+        `https://blogbackend-production-db2b.up.railway.app/posts/${id}`,
         {
           headers: { accessToken: localStorage.getItem("token") },
         }
